@@ -1741,9 +1741,9 @@ export default function register(api: OpenClawPluginApi) {
       await policyReady;
       const plan = await buildPlanFromPrompt({
         prompt: event.prompt,
-        tools: event.tools,
-        model: ctx.model ?? null,
-        modelRegistry: ctx.modelRegistry ?? null,
+        tools: (event as any).tools ?? [],
+        model: (ctx as any).model ?? null,
+        modelRegistry: (ctx as any).modelRegistry ?? null,
         log: (message) => api.logger.info(message),
       });
       const planRecord = plan as Record<string, unknown>;
@@ -1756,13 +1756,13 @@ export default function register(api: OpenClawPluginApi) {
       const client = getClient(cfg, identity);
       const planCapture = client.capturePlan("openclaw", event.prompt, plan, {
         sessionKey: ctx.sessionKey,
-        messageChannel: ctx.messageChannel,
-        accountId: ctx.accountId,
-        senderId: ctx.senderId,
-        senderName: ctx.senderName,
-        senderUsername: ctx.senderUsername,
-        senderE164: ctx.senderE164,
-        runId: ctx.runId,
+        messageChannel: (ctx as any).messageChannel,
+        accountId: (ctx as any).accountId,
+        senderId: (ctx as any).senderId,
+        senderName: (ctx as any).senderName,
+        senderUsername: (ctx as any).senderUsername,
+        senderE164: (ctx as any).senderE164,
+        runId: (ctx as any).runId,
       });
       const token = await client.getIntentToken(planCapture, cfg.policy, cfg.validitySeconds);
       const tokenRaw = JSON.stringify(token);

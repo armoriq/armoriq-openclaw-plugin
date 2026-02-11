@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/armoriq",
+  "name": "armoriq-openclaw-plugin",
   "version": "1.0.0",
   "description": "ArmorIQ intent enforcement and security plugin for OpenClaw AI agents",
   "type": "module",

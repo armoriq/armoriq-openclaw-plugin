@@ -16,16 +16,30 @@ Intent-based security enforcement for OpenClaw AI agents. Protect your AI assist
 ### Prerequisites
 
 - OpenClaw >= 2026.2.0
+- Node.js >= 20
 - ArmorIQ account (get your API key at [armoriq.ai](https://armoriq.ai))
 
 ### Install Plugin
 
+**Option 1: From npm (Recommended)**
 ```bash
 # Install OpenClaw if you haven't already
 npm install -g openclaw
 
 # Install ArmorIQ plugin
-openclaw plugins install @openclaw/armoriq
+openclaw plugins install armoriq-openclaw-plugin
+```
+
+**Option 2: From GitHub (For testing/development)**
+```bash
+# Install directly from GitHub
+openclaw plugins install https://github.com/armoriq/armoriq-openclaw-plugin.git
+
+# Or clone and install locally
+git clone https://github.com/armoriq/armoriq-openclaw-plugin.git
+cd armoriq-openclaw-plugin
+npm install && npm run build
+openclaw plugins install .
 ```
 
 ## Configuration
@@ -79,20 +93,40 @@ openclaw gateway restart
 
 ## How It Works
 
-### 1. Intent Planning
+This plugin **integrates with OpenClaw** by hooking into its agent execution pipeline:
+
+### 1. Plugin Registration
+```typescript
+// OpenClaw loads the plugin
+import armoriqPlugin from '@openclaw/armoriq';
+
+// OpenClaw calls the register function
+armoriqPlugin(openclawPluginApi);
+
+// Plugin registers hooks into OpenClaw's lifecycle
+api.on('before_tool_call', async (event, ctx) => {
+  // ArmorIQ enforcement logic
+});
+```
+
+### 2. Intent Planning (before_agent_start hook)
 When you send a message to your OpenClaw agent, ArmorIQ:
+- Intercepts via `before_agent_start` hook
 - Analyzes your prompt and available tools
 - Generates an explicit plan of allowed tool actions
 - Sends the plan to ArmorIQ IAP backend
 - Receives a cryptographically signed intent token
+- Caches the plan for this conversation
 
-### 2. Tool Execution Enforcement
+### 3. Tool Execution Enforcement (before_tool_call hook)
 Before each tool execution, ArmorIQ:
+- Intercepts via `before_tool_call` hook
 - Checks if the tool is in the approved plan
 - Validates the intent token hasn't expired
 - Applies local policy rules
 - Optionally verifies CSRG cryptographic proofs
-- **Blocks execution if any check fails**
+- **Returns `{ block: true }` to OpenClaw if any check fails**
+- OpenClaw blocks the tool execution
 
 ### 3. Protection Examples
 
