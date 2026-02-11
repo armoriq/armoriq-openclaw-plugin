@@ -1,6 +1,6 @@
 {
   "name": "armoriq-openclaw-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ArmorIQ intent enforcement and security plugin for OpenClaw AI agents",
   "type": "module",
   "main": "dist/index.js",
@@ -20,10 +20,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@armoriq/sdk": "^0.2.6"
+    "@armoriq/sdk": "^0.2.6",
+    "@sinclair/typebox": "^0.34.0"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.2.0"
+    "openclaw": ">=2026.2.0",
+    "@mariozechner/pi-ai": "*",
+    "@mariozechner/pi-coding-agent": "*"
   },
   "devDependencies": {
     "openclaw": "^2026.2.6",
