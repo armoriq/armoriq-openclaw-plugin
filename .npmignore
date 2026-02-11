@@ -1,0 +1,25 @@
+# Source files (only ship dist/)
+src/
+test/
+*.test.ts
+index.ts
+
+# Config files
+tsconfig.json
+vitest.config.ts
+.gitignore
+
+# Development
+.vscode/
+.idea/
+*.swp
+
+# CI/CD
+.github/
+
+# Documentation (except README)
+docs/
+CONTRIBUTING.md
+
+# Logs
+*.log
