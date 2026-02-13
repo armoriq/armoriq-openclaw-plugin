@@ -20,16 +20,18 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@armoriq/sdk": "^0.2.6"
+    "@armoriq/sdk": "^0.2.6",
+    "@mariozechner/pi-ai": "^0.52.9",
+    "@mariozechner/pi-coding-agent": "^0.52.9"
   },
   "peerDependencies": {
     "openclaw": ">=2026.2.0"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "openclaw": "^2026.2.6",
     "typescript": "^5.9.0",
-    "vitest": "^2.0.0",
-    "@types/node": "^22.0.0"
+    "vitest": "^2.0.0"
   },
   "openclaw": {
     "extensions": [
