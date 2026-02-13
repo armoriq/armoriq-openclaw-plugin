@@ -1712,7 +1712,9 @@ export default function register(api: OpenClawPluginApi) {
     logger: api.logger,
   });
 
-  api.on("before_agent_start", async (event, ctx) => {
+  api.on("before_agent_start", async (_event, _ctx) => {
+    const event = _event as typeof _event & { tools?: Array<{ name: string; description?: string; parameters?: Record<string, unknown> }> };
+    const ctx = _ctx as typeof _ctx & ToolContext;
     const runKey = resolveRunKey(ctx as ToolContext);
     api.logger.info(
       `armoriq: [agent_start] runKey=${runKey} runId=${(ctx as ToolContext).runId} sessionKey=${(ctx as ToolContext).sessionKey}`,
