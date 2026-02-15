@@ -15,17 +15,37 @@ Intent-based security enforcement for OpenClaw AI agents. Protect your AI assist
 
 ### Prerequisites
 
-- OpenClaw >= 2026.2.0
+- OpenClaw >= 2026.2.0 (with ArmorIQ patches applied)
 - ArmorIQ account (get your API key at [armoriq.ai](https://armoriq.ai))
 
-### Install Plugin
+### Quick Setup
+
+1. **Install and patch OpenClaw:**
 
 ```bash
-# Install OpenClaw if you haven't already
-npm install -g openclaw
+# Clone OpenClaw
+git clone --branch v2026.2.12 --depth 1 https://github.com/openclaw/openclaw.git
+cd openclaw
 
-# Install ArmorIQ plugin
-openclaw plugins install @openclaw/armoriq
+# Apply ArmorIQ security patches
+curl -fsSL https://armoriq.ai/armoriq_openclaw_patch.sh | bash
+
+# Build and install
+pnpm install && pnpm build
+pnpm link --global
+```
+
+2. **Install ArmorIQ plugin:**
+
+```bash
+openclaw plugins install @armoriq/armoriq
+```
+
+3. **Verify:**
+
+```bash
+openclaw plugins list
+# Should show: ArmorIQ | armoriq | loaded | 0.0.1
 ```
 
 ## Configuration
