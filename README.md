@@ -1,4 +1,4 @@
-# ArmorIQ OpenClaw Plugin
+# ArmorClaw
 
 Intent-based security enforcement for OpenClaw AI agents. Protect your AI assistant from prompt injection, data exfiltration, and unauthorized tool execution.
 
